@@ -1,0 +1,20 @@
+<div class="page-header">
+  <h3>
+    {{ product.name }}
+  </h3>
+</div>
+<div ng-repeat="comment in product.comments">
+  <span class="glyphicon glyphicon-thumb-up" ng-click="incrementUpvotes(comment)"></span>
+  <span style="font-size:20px; margin-left: 10px;">
+    {{ comment.body }}
+  </span>
+  {{ comment.upvotes }} - by {{ comment.author }}
+</div>
+<form ng-submit="addComment()" style="margin-top:30px;">
+  <h3>댓글달기</h3>
+  <div class="form-group">
+    <input type="text" class="form-control" placeholder="Comment" ng-model="body">
+    </input>
+  </div>
+  <button type="submit" class="btn btn-primary">댓글추가</button>
+</form>
