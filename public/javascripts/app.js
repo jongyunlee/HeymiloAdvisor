@@ -70,7 +70,7 @@ app.factory('auth', ['$http', '$window', function($http, $window) {
     	if (auth.isLoggedIn()) {
     	    var token = auth.getToken();
     	    var payload = JSON.parse($window.atob(token.split('.')[1]));
-    	    return payload.username;
+    	    return payload.user_id;
     	}
     };
     auth.register = function(user){
@@ -135,6 +135,36 @@ app.controller('MainCtrl', [
 	    $scope.name = '';
 	    $scope.price = '';
 	};
+
+	// slide
+	$scope.slideIndex = 1;
+	$scope.showDivs = function(n) {
+	    var i;
+	    var x = document.getElementsByClassName("mySlides");
+	    if (n > x.length) {$scope.slideIndex = 1}
+	    if (n < 1) {$scope.slideIndex = x.length}
+	    for (i = 0; i < x.length; i++) {
+		x[i].style.display = "none";
+	    }
+	    x[$scope.slideIndex-1].style.display = "block";
+	}
+	$scope.showDivs($scope.slideIndex);
+
+	$scope.plusDivs = function(n) {
+	    $scope.showDivs($scope.slideIndex += n);
+	}
+	carousel();
+	function carousel() {
+	    var i;
+	    var x = document.getElementsByClassName("mySlides");
+	    for (i = 0; i < x.length; i++) {
+		x[i].style.display = "none";
+	    }
+	    $scope.slideIndex++;
+	    if ($scope.slideIndex > x.length) {$scope.slideIndex = 1}
+	    x[$scope.slideIndex-1].style.display = "block";
+	    setTimeout(carousel, 10000); // Change image every 10 seconds
+	}
     }
 ]);
 
@@ -183,10 +213,42 @@ app.controller('AuthCtrl', [
 
 app.controller('NavCtrl', [
     '$scope',
+    '$state',
     'auth',
-    function($scope, auth){
+    function($scope, $state, auth){
 	$scope.isLoggedIn = auth.isLoggedIn;
 	$scope.currentUser = auth.currentUser;
 	$scope.logOut = auth.logOut;
+	$scope.showLogin = function() {
+	    var x = document.getElementById("dropdown-login");
+	    if (x.className.indexOf("w3-show") == -1)
+		x.className += " w3-show";
+	    else
+		x.className = x.className.replace(" w3-show", "");
+	};
+	$scope.showSmallLogin = function() {
+	    var x = document.getElementById("small-dropdown-login");
+	    if (x.className.indexOf("w3-show") == -1)
+		x.className += " w3-show";
+	    else
+		x.className = x.className.replace(" w3-show", "");
+	};
+	$scope.user = {};
+	$scope.register = function() {
+	    auth.register($scope.user).error(function(error) {
+		$scope.error = error;
+	    }).then(function() {
+		$state.go('home');
+	    });
+	};
+	$scope.logIn = function() {
+	    auth.logIn($scope.user).error(function(error) {
+		$scope.user = {};
+		$scope.error = error;
+	    }).then(function() {
+		$scope.user = {};
+		$state.go('home');
+	    });
+	};
     }
 ]);

@@ -1,0 +1,64 @@
+package com.heymilo.advisor.ui;
+
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View.OnClickListener;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.TextView;
+import butterknife.ButterKnife;
+import butterknife.InjectView;
+import com.heymilo.advisor.R;
+
+public class SignupStep1Fragment extends BaseFragment {
+
+    @InjectView(R.id.btn_next) Button mNextButton;
+    @InjectView(R.id.edit_userid) EditText mUserIdEdit;
+    @InjectView(R.id.edit_password) EditText mPasswordEdit;
+
+    private BaseActivity mActivity;
+
+    public interface SignupStep1Listener {
+	public void onFinishStep1(String userId, String password);
+    }
+
+    private SignupStep1Listener mListener;
+
+    public void setSignupStep1Listener(SignupStep1Listener listener) {
+	mListener = listener;
+    }
+
+    public static SignupStep1Fragment newInstance(SignupStep1Listener listener) {
+	SignupStep1Fragment f = new SignupStep1Fragment();
+	f.setSignupStep1Listener(listener);
+	return f;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+	mActivity = (BaseActivity) getActivity();
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+	View v = inflater.inflate(R.layout.fragment_signup_step1, null);
+	ButterKnife.inject(this, v);
+	mNextButton.setOnClickListener(onButtonsClick);
+	return v;
+    }
+
+    OnClickListener onButtonsClick = new OnClickListener() {
+	    @Override
+	    public void onClick(View v) {
+		switch(v.getId()) {
+		case R.id.btn_next:
+		    if (mListener != null) mListener.onFinishStep1(mUserIdEdit.getText().toString(), mPasswordEdit.getText().toString());
+		    break;
+		}
+	    }
+	};
+}

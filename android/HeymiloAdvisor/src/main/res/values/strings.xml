@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">HeymiloAdvisor</string>
+    <string name="kakao_app_key">48bc731bc0160dcbd9c10fc6e87d94fa</string>
+    <string name="facebook_app_id">1627046017574902</string>
+    <string name="desc_image">Image</string>
+    <string name="search_title">검색</string>
+    <string name="activity_signup">회원가입</string>
+    <string name="activity_product_detail">상품상세</string>
+</resources>

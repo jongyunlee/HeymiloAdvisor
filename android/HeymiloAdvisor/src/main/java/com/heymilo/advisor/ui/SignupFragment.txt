@@ -1,0 +1,140 @@
+package com.heymilo.advisor.ui;
+
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ListView;
+import android.widget.TextView;
+import butterknife.ButterKnife;
+import butterknife.InjectView;
+import com.heymilo.advisor.R;
+import com.heymilo.advisor.util.AuthManager;
+import com.heymilo.advisor.task.RegisterTask;
+import com.heymilo.advisor.task.RegisterTask.RegisterTaskListener;
+import com.heymilo.advisor.model.RegisterObject;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
+import com.heymilo.advisor.ui.BaseDialogFragment.DialogClickListener;
+
+public class SignupFragment extends TabsFragment implements SignupStep1Fragment.SignupStep1Listener, SignupStep2Fragment.SignupStep2Listener, SignupStep3Fragment.SignupStep3Listener {
+
+    private BaseActivity mActivity;
+    private String[] titles;
+    private String userId;
+    private String password;
+    private RegisterTask mRegisterTask;
+
+    public static SignupFragment newInstance() {
+	SignupFragment f = new SignupFragment();
+	return f;
+    }
+
+    @Override
+    public String[] getTabTitles() {
+	return titles;
+    }
+
+    @Override
+    public Fragment getTabFragment(int position) {
+	Fragment fragment;
+	switch(position) {
+	case 0:
+	    return SignupStep1Fragment.newInstance(this);
+	case 1:
+	    return SignupStep2Fragment.newInstance(this);
+	case 2:
+	    return SignupStep3Fragment.newInstance(this);
+	}
+	return StringFragment.newInstance(titles[position]);
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+	mActivity = (BaseActivity) getActivity();
+	// titles = new String[3];
+	// titles[0] = "회원가입";
+	// titles[1] = "반려동물";
+	// titles[2] = "이용약관";
+	titles = new String[2];
+	titles[0] = "회원가입";
+	titles[1] = "반려동물";
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+	View v = super.onCreateView(inflater, container, savedInstanceState);
+	// ((ViewPager)v.findViewById(R.id.pager)).setPageTransformer(true, new ParallaxPageTransformer(3));
+	return v;
+    }
+
+    @Override
+    public void onFinishStep1(String userId, String password) {
+	pager.setCurrentItem(1, true);
+	this.userId = userId;
+	this.password = password;
+    }
+
+    @Override
+    public void onFinishStep2(String name, String kind, int age, int weight) {
+	// AuthManager.setUserNickname(mActivity, name);
+	// AuthManager.setKind(mActivity, kind);
+	// AuthManager.setAge(mActivity, age);
+	// AuthManager.setWeight(mActivity, weight);
+	// AuthManager.setUserId(mActivity, "1");
+	// AuthManager.setSessionKey(mActivity, "1234");
+	// mActivity.finish();
+	signup();
+    }
+
+    @Override
+    public void onFinishStep3() {
+
+    }
+
+    public void signup() {
+	mRegisterTask = new RegisterTask(mActivity, userId, password);
+	mRegisterTask.setRegisterTaskListener(new RegisterTaskListener() {
+		@Override
+		public void onSuccess(RegisterObject result) {
+		    AuthManager.setToken(mActivity, result.getToken());
+		    mActivity.finish();
+		}
+
+		@Override
+		public void onFailure(RegisterObject result) {
+		    if (result != null) {
+			showDialogMessage(result.getMessage());
+		    } else {
+			showDialogMessage("Network ERROR");
+		    }
+		}
+	    });
+	mRegisterTask.execute();
+    }
+
+    @Override
+    public void onPause() {
+	if (mRegisterTask != null) {
+	    mRegisterTask.cancel(true);
+	}
+	super.onPause();
+    }
+
+    public void showDialogMessage(String message) {
+	FragmentTransaction ft = getFragmentManager().beginTransaction();
+	Fragment prev = getFragmentManager().findFragmentByTag("dialog");
+	if (prev != null) {
+	    ft.remove(prev);
+	}
+	ft.addToBackStack(null);
+	BaseDialogFragment newFragment
+	    = BaseDialogFragment.newInstance("",
+					     message,
+					     false);
+	newFragment.show(ft, "dialog");
+    }
+}

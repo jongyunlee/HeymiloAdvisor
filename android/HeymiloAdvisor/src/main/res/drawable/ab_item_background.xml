@@ -1,0 +1,15 @@
+<selector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:exitFadeDuration="@android:integer/config_mediumAnimTime">
+    <!-- focused/pressed: color=red -->
+    <item
+        android:state_focused="true"
+        android:state_pressed="true"
+        android:drawable="@drawable/ab_item_pressed" />
+    <!-- pressed: color=red -->
+    <item
+        android:state_pressed="true"
+        android:drawable="@drawable/ab_item_pressed" />
+    <!-- normal: color=transparent -->
+    <item
+        android:drawable="@drawable/ab_item_normal" />
+</selector>

@@ -1,3 +1,4 @@
+var path = require('path');
 var passport = require('passport');
 var express = require('express');
 var router = express.Router();
@@ -11,7 +12,11 @@ var auth = jwt({secret: 'SECRET', userProperty: 'payload'});
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+    res.render('index', { title: 'Express' });
+});
+
+router.get('/landing', function(req, res, next) {
+    res.sendFile(path.join(__dirname, '../public/landing.html'));
 });
 
 router.get('/products', function(req, res, next) {
@@ -50,7 +55,7 @@ router.get('/products/:product', function(req, res) {
 router.post('/products/:product/comments', auth, function(req, res, next) {
     var comment = new Comment(req.body);
     comment.product = req.product;
-    comment.author = req.payload.username;
+    comment.author = req.payload.user_id;
     comment.save(function(err, comment) {
 	if (err) { return next(err); }
 	req.product.comments.push(comment);
@@ -62,22 +67,24 @@ router.post('/products/:product/comments', auth, function(req, res, next) {
 });
 
 router.post('/register', function(req, res, next) {
-    if (!req.body.username || !req.body.password) {
+    if (!req.body.user_id || !req.body.password) {
 	return res.status(400).json({ message: 'Please fill out all fields' });
     }
     var user = new User();
-    user.username = req.body.username;
+    user.user_id = req.body.user_id;
     user.setPassword(req.body.password);
 
     user.save(function (err) {
-
-	if (err) { return next(err); }
+	if (err) {
+	    console.log('err : ' + err);
+	    return next(err);
+	}
 	return res.json({token: user.generateJWT()});
     });
 });
 
 router.post('/login', function(req, res, next) {
-    if (!req.body.username || !req.body.password) {
+    if (!req.body.user_id || !req.body.password) {
 	return res.status(100).json({ message: 'Please fill out all fields' });
     }
     passport.authenticate('local', function(err, user, info) {

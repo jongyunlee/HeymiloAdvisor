@@ -1,22 +1,149 @@
-<div class="page-header">
-  <h1>Heymilo</h1>
-</div>
-<div ng-repeat="product in products">
-  <a href="#/products/{{product._id}}">
-    상품이름 : {{ product.name }}<br />
-    별점 : {{ product.star }}<br />
-    리뷰갯수 : {{ product.reviewCount }}<br />
-    가격 : {{ product.price }}<br />
-  </a>
-  <hr />
-</div>
-<form ng-show="isLoggedIn()" ng-submit="addProduct()" style="margin-top: 30px;">
-  <h3>상품추가</h3>
-  <div class="form-group">
-    <input class="form-control" type="text" placeholder="상품이름" ng-model="name"></input>
+<div class="w3-content w3-display-container w3-margin-top w3-margin-bottom" style="max-width:100%;position:relative;">
+  <div class="w3-display-container mySlides w3-animate-left">
+    <img src="images/slide1.jpg" style="width:100%">
+    <div class="w3-display-bottomleft w3-large w3-container w3-padding-16 w3-light-grey">
+      Hello World
+    </div>
   </div>
-  <div class="form-group">
-    <input class="form-control" type="text" placeholder="상품가격" ng-model="price"></input>
+  <div class="w3-display-container mySlides w3-animate-left">
+    <img src="images/slide2.jpg" style="width:100%">
+    <div class="w3-display-bottomleft w3-large w3-container w3-padding-16 w3-light-grey">
+      Hello World
+    </div>
   </div>
-  <button type="submit" class="btn btn-primary">상품추가</button>
-</form>
+  <div class="w3-display-container mySlides w3-animate-left">
+    <img src="images/slide3.jpg" style="width:100%">
+    <div class="w3-display-bottomleft w3-large w3-container w3-padding-16 w3-light-grey">
+      Hello World
+    </div>
+  </div>
+  <a class="w3-light-grey w3-hover-red w3-text-white w3-btn-floating w3-margin-left" style="position:absolute;top:45%;left:0" ng-click="plusDivs(-1)">❮</a>
+  <a class="w3-light-grey w3-hover-red w3-text-white w3-btn-floating w3-margin-right" style="position:absolute;top:45%;right:0" ng-click="plusDivs(1)">❯</a>
+</div>
+<!-- <button ng-click="addAnimalInfo()" class="btn btn-primary pull-right">반려동물 정보 입력</button> -->
+<div id="popular" class="w3-container w3-border-bottom w3-margin-top">
+  <div class="w3-container w3-padding">
+    <h3 style="display: inline">인기상품</h3><span class="w3-text-blue w3-hover-blue w3-margin-left">보러가기 ></span>
+  </div>
+  <div class="w3-row-padding">
+    <div class="w3-quarter w3-container w3-margin-bottom w3-hover-shadow">
+      <img src="images/thumb-product-bundle-1.jpg" alt="Norway" style="width:100%" class="w3-hover-opacity">
+      <div class="w3-container w3-white">
+	<p><b>닥터하비스 오라클 2종 혼합세트</b></p>
+	<p>오라클 시리즈 국내입점기념 한정수량 2종 혼합세트입니다</p>
+      </div>
+    </div>
+    <div class="w3-quarter w3-container w3-margin-bottom w3-hover-shadow">
+      <img src="images/thumb-product-bundle-1.jpg" alt="Norway" style="width:100%" class="w3-hover-opacity">
+      <div class="w3-container w3-white">
+	<p><b>닥터하비스 오라클 2종 혼합세트</b></p>
+	<p>오라클 시리즈 국내입점기념 한정수량 2종 혼합세트입니다</p>
+      </div>
+    </div>
+    <div class="w3-quarter w3-container w3-margin-bottom w3-hover-shadow">
+      <img src="images/thumb-product-bundle-1.jpg" alt="Norway" style="width:100%" class="w3-hover-opacity">
+      <div class="w3-container w3-white">
+	<p><b>닥터하비스 오라클 2종 혼합세트</b></p>
+	<p>오라클 시리즈 국내입점기념 한정수량 2종 혼합세트입니다</p>
+      </div>
+    </div>
+    <div class="w3-quarter w3-container w3-margin-bottom w3-hover-shadow">
+      <img src="images/thumb-product-bundle-1.jpg" alt="Norway" style="width:100%" class="w3-hover-opacity">
+      <div class="w3-container w3-white">
+	<p><b>닥터하비스 오라클 2종 혼합세트</b></p>
+	<p>오라클 시리즈 국내입점기념 한정수량 2종 혼합세트입니다</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="favorites" class="w3-container w3-border-bottom w3-margin-top">
+  <div class="w3-container w3-padding">
+    <h3 style="display: inline">이 상품을 추천합니다</h3><span class="w3-text-blue w3-hover-blue w3-margin-left">보러가기 ></span>
+  </div>
+  <div class="w3-row-padding">
+    <div class="w3-quarter w3-container w3-margin-bottom w3-hover-shadow">
+      <img src="images/thumb-product-bundle-1.jpg" alt="Norway" style="width:100%" class="w3-hover-opacity">
+      <div class="w3-container w3-white">
+	<p><b>닥터하비스 오라클 2종 혼합세트</b></p>
+	<p>오라클 시리즈 국내입점기념 한정수량 2종 혼합세트입니다</p>
+      </div>
+    </div>
+    <div class="w3-quarter w3-container w3-margin-bottom w3-hover-shadow">
+      <img src="images/thumb-product-bundle-1.jpg" alt="Norway" style="width:100%" class="w3-hover-opacity">
+      <div class="w3-container w3-white">
+	<p><b>닥터하비스 오라클 2종 혼합세트</b></p>
+	<p>오라클 시리즈 국내입점기념 한정수량 2종 혼합세트입니다</p>
+      </div>
+    </div>
+    <div class="w3-quarter w3-container w3-margin-bottom w3-hover-shadow">
+      <img src="images/thumb-product-bundle-1.jpg" alt="Norway" style="width:100%" class="w3-hover-opacity">
+      <div class="w3-container w3-white">
+	<p><b>닥터하비스 오라클 2종 혼합세트</b></p>
+	<p>오라클 시리즈 국내입점기념 한정수량 2종 혼합세트입니다</p>
+      </div>
+    </div>
+    <div class="w3-quarter w3-container w3-margin-bottom w3-hover-shadow">
+      <img src="images/thumb-product-bundle-1.jpg" alt="Norway" style="width:100%" class="w3-hover-opacity">
+      <div class="w3-container w3-white">
+	<p><b>닥터하비스 오라클 2종 혼합세트</b></p>
+	<p>오라클 시리즈 국내입점기념 한정수량 2종 혼합세트입니다</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="blog" class="w3-container w3-margin-top">
+  <div class="w3-container w3-padding">
+    <h3 style="display: inline">오늘의 헤이마일로</h3>
+  </div>
+  <div class="w3-row-padding">
+    <div class="w3-third w3-margin-bottom">
+      <div class="w3-card-2 w3-hover-shadow">
+	<img src="images/thumb-product-bundle-1.jpg" alt="Norway" style="width:100%" class="w3-hover-opacity">
+	<div class="w3-container w3-white">
+	  <p><b>닥터하비스 오라클 2종 혼합세트</b></p>
+	  <p>오라클 시리즈 국내입점기념 한정수량 2종 혼합세트입니다</p>
+	</div>
+      </div>
+    </div>
+    <div class="w3-third w3-margin-bottom">
+      <div class="w3-card-2 w3-hover-shadow">
+	<img src="images/thumb-product-bundle-1.jpg" alt="Norway" style="width:100%" class="w3-hover-opacity">
+	<div class="w3-container w3-white">
+	  <p><b>닥터하비스 오라클 2종 혼합세트</b></p>
+	  <p>오라클 시리즈 국내입점기념 한정수량 2종 혼합세트입니다</p>
+	</div>
+      </div>
+    </div>
+    <div class="w3-third w3-margin-bottom">
+      <div class="w3-card-2 w3-hover-shadow">
+	<img src="images/thumb-product-bundle-1.jpg" alt="Norway" style="width:100%" class="w3-hover-opacity">
+	<div class="w3-container w3-white">
+	  <p><b>닥터하비스 오라클 2종 혼합세트</b></p>
+	  <p>오라클 시리즈 국내입점기념 한정수량 2종 혼합세트입니다</p>
+	</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- <div ng-repeat="product in products"> -->
+<!--   <a href="#/products/{{product._id}}"> -->
+<!--     상품이름 : {{ product.name }}<br /> -->
+<!--     별점 : {{ product.star }}<br /> -->
+<!--     리뷰갯수 : {{ product.reviewCount }}<br /> -->
+<!--     가격 : {{ product.price }}<br /> -->
+<!--   </a> -->
+<!--   <hr/> -->
+<!-- </div> -->
+<!-- <form ng-show="isLoggedIn()" ng-submit="addProduct()" style="margin-top: 30px;"> -->
+<!--   <h3>상품추가</h3> -->
+<!--   <div class="form-group"> -->
+<!--     <input class="form-control" type="text" placeholder="상품이름" ng-model="name"></input> -->
+<!--   </div> -->
+<!--   <div class="form-group"> -->
+<!--     <input class="form-control" type="text" placeholder="상품가격" ng-model="price"></input> -->
+<!--   </div> -->
+<!--   <button type="submit" class="btn btn-primary">상품추가</button> -->
+<!-- </form> -->

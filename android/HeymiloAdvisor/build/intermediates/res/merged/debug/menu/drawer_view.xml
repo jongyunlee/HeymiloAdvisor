@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+  <!-- <group android:id="@+id/group_feature" -->
+  <!--        android:checkableBehavior="single"> -->
+  <!--   <item -->
+  <!--       android:id="@+id/nav_home" -->
+  <!--       android:icon="@drawable/ic_nav_home" -->
+  <!--       android:title="홈" /> -->
+  <!--   <item -->
+  <!--       android:id="@+id/nav_point" -->
+  <!--       android:icon="@drawable/ic_nav_point" -->
+  <!--       android:title="적립금관리" /> -->
+  <!--   <item -->
+  <!--       android:id="@+id/nav_words_helper" -->
+  <!--       android:icon="@drawable/ic_nav_words_helper" -->
+  <!--       android:title="문구 도우미" /> -->
+  <!--   <item -->
+  <!--       android:id="@+id/nav_customer_center" -->
+  <!--       android:icon="@drawable/ic_nav_customer_center" -->
+  <!--       android:title="고객센터" /> -->
+  <!--   <item -->
+  <!--       android:id="@+id/nav_settings" -->
+  <!--       android:icon="@drawable/ic_nav_settings" -->
+  <!--       android:title="설정" /> -->
+  <!-- </group> -->
+  <!-- <group android:id="@+id/group_settings" -->
+  <!--        android:checkableBehavior="single"> -->
+  <!--   <item -->
+  <!-- 	android:id="@+id/nav_event" -->
+  <!-- 	android:icon="@drawable/ic_nav_event" -->
+  <!-- 	android:title="이벤트" /> -->
+  <!--   <item -->
+  <!-- 	android:id="@+id/nav_notice" -->
+  <!-- 	android:icon="@drawable/ic_nav_notice" -->
+  <!-- 	android:title="공지사항" /> -->
+  <!--   <item -->
+  <!-- 	android:id="@+id/nav_about" -->
+  <!-- 	android:icon="@drawable/ic_nav_about" -->
+  <!-- 	android:title="About" /> -->
+  <!-- </group> -->
+</menu>
+<!-- From: file:/Users/jongyunlee/play/StartupClinic/server/heymilo/android/HeymiloAdvisor/src/main/res/menu/drawer_view.xml -->
